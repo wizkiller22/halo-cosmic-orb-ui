@@ -284,6 +284,7 @@ button:focus-visible {
 .orb-animation canvas {
   width: 100% !important;
   height: 100% !important;
+  background: transparent !important;
 }
 .orb-fallback {
   position: absolute;
@@ -1012,7 +1013,14 @@ button:focus-visible {
     height: 62px;
   }
   .halo-drawer {
-    padding: 28px 24px;
+    padding: 28px 22px;
+  }
+  .drawer-brand {
+    padding-left: 20px;
+  }
+  .halo-drawer nav button {
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+    padding-inline: 10px;
   }
 }
 
