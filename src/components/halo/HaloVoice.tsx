@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { Alignment, Fit, Layout, useRive } from "@rive-app/react-canvas";
+import { useRive } from "@rive-app/react-canvas";
 
 import logo from "@/assets/halo/ic_logo_hal.png.asset.json";
 import orb from "@/assets/halo/ic_halo_orb.png.asset.json";
@@ -111,7 +111,6 @@ function Orb({ listening }: { listening: boolean }) {
     src: assistant.url,
     stateMachines: "Assistant_SM",
     autoplay: true,
-    layout: new Layout({ fit: Fit.Contain, alignment: Alignment.Center }),
   });
   return (
     <div className={`orb-stage ${listening ? "is-listening" : "is-paused"}`}>

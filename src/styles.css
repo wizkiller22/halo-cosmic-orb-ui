@@ -280,6 +280,7 @@ button:focus-visible {
   z-index: 2;
   width: 300px;
   height: 300px;
+  mix-blend-mode: screen;
 }
 .orb-animation canvas {
   width: 100% !important;
