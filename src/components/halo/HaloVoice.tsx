@@ -31,10 +31,17 @@ type HaloButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const navItems = [
-  ["Voice", voiceNavIcon], ["Chat", chatNavIcon], ["Vision", visionNavIcon],
-  ["Documents", docsNavIcon], ["Translate", translateNavIcon], ["Music", musicNavIcon],
-  ["Images", imagesNavIcon], ["Memory", memoryNavIcon], ["Profile", profileNavIcon],
-  ["Plans & Pricing", plansNavIcon], ["Settings", drawerSettingsIcon],
+  ["Voice", voiceNavIcon],
+  ["Chat", chatNavIcon],
+  ["Vision", visionNavIcon],
+  ["Documents", docsNavIcon],
+  ["Translate", translateNavIcon],
+  ["Music", musicNavIcon],
+  ["Images", imagesNavIcon],
+  ["Memory", memoryNavIcon],
+  ["Profile", profileNavIcon],
+  ["Plans & Pricing", plansNavIcon],
+  ["Settings", drawerSettingsIcon],
 ] as const;
 
 const suggestions = [
@@ -54,7 +61,13 @@ const recentItems = [
 
 function HaloButton({ label, image, className = "", children, ...props }: HaloButtonProps) {
   return (
-    <button type="button" aria-label={label} title={label} className={`halo-button ${className}`} {...props}>
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      className={`halo-button ${className}`}
+      {...props}
+    >
       {image ? <img src={image.url} alt="" aria-hidden="true" /> : children}
     </button>
   );
@@ -63,7 +76,10 @@ function HaloButton({ label, image, className = "", children, ...props }: HaloBu
 function Brand() {
   return (
     <div className="halo-brand" aria-label="HALO AI Assistant">
-      <div className="halo-wordmark"><img src={logo.url} alt="HAL" /><img src={orb.url} alt="O" /></div>
+      <div className="halo-wordmark">
+        <img src={logo.url} alt="HAL" />
+        <img src={orb.url} alt="O" />
+      </div>
       <span>AI Assistant</span>
     </div>
   );
@@ -72,10 +88,18 @@ function Brand() {
 function Header({ onMenu }: { onMenu: () => void }) {
   return (
     <header className="halo-header">
-      <HaloButton label="Open menu" image={menuIcon} className="header-icon menu-button" onClick={onMenu} />
+      <HaloButton
+        label="Open menu"
+        image={menuIcon}
+        className="header-icon menu-button"
+        onClick={onMenu}
+      />
       <Brand />
       <div className="header-actions">
-        <HaloButton label="View Pro plan" className="pro-button"><span aria-hidden="true">♛</span><b>Pro</b></HaloButton>
+        <HaloButton label="View Pro plan" className="pro-button">
+          <span aria-hidden="true">♛</span>
+          <b>Pro</b>
+        </HaloButton>
         <HaloButton label="Voice settings" image={settingsIcon} className="header-icon" />
       </div>
     </header>
@@ -83,12 +107,21 @@ function Header({ onMenu }: { onMenu: () => void }) {
 }
 
 function Orb({ listening }: { listening: boolean }) {
-  const { RiveComponent } = useRive({ src: assistant.url, stateMachines: "Assistant_SM", autoplay: true });
+  const { RiveComponent } = useRive({
+    src: assistant.url,
+    stateMachines: "Assistant_SM",
+    autoplay: true,
+  });
   return (
     <div className={`orb-stage ${listening ? "is-listening" : "is-paused"}`}>
-      <div className="wave-line" aria-hidden="true"><span /><span /></div>
+      <div className="wave-line" aria-hidden="true">
+        <span />
+        <span />
+      </div>
       <div className="orb-glow" />
-      <div className="orb-animation"><RiveComponent aria-label="HALO assistant orb" /></div>
+      <div className="orb-animation">
+        <RiveComponent aria-label="HALO assistant orb" />
+      </div>
       <img className="orb-fallback" src={orb.url} alt="HALO assistant orb" />
       <div className="orb-shadow" />
     </div>
@@ -97,14 +130,24 @@ function Orb({ listening }: { listening: boolean }) {
 
 function ActivityPanel() {
   const rows = [
-    ["♩", "Ready to listen", "ready"], ["♧", "Memory active", "memory"],
-    ["◇", "All systems online", "online"], ["▢", "Context preserved", "context"],
+    ["♩", "Ready to listen", "ready"],
+    ["♧", "Memory active", "memory"],
+    ["◇", "All systems online", "online"],
+    ["▢", "Context preserved", "context"],
   ];
   return (
     <aside className="activity-panel glass-panel">
-      <div className="activity-title"><span>HALO Activity</span><i /></div>
+      <div className="activity-title">
+        <span>HALO Activity</span>
+        <i />
+      </div>
       <div className="activity-list">
-        {rows.map(([symbol, label, kind]) => <div className={`activity-row ${kind}`} key={label}><b>{symbol}</b><span>{label}</span></div>)}
+        {rows.map(([symbol, label, kind]) => (
+          <div className={`activity-row ${kind}`} key={label}>
+            <b>{symbol}</b>
+            <span>{label}</span>
+          </div>
+        ))}
       </div>
     </aside>
   );
@@ -113,10 +156,19 @@ function ActivityPanel() {
 function VoiceHero({ listening, onToggle }: { listening: boolean; onToggle: () => void }) {
   return (
     <section className="voice-hero">
-      <div className="voice-copy"><h1>{listening ? "I’m listening" : "Voice paused"}</h1><p>{listening ? "Speak naturally, I’m here to help." : "Tap the Orb when you’re ready."}</p></div>
+      <div className="voice-copy">
+        <h1>{listening ? "I’m listening" : "Voice paused"}</h1>
+        <p>{listening ? "Speak naturally, I’m here to help." : "Tap the Orb when you’re ready."}</p>
+      </div>
       <Orb listening={listening} />
-      <button type="button" className={`listen-pill ${listening ? "active" : ""}`} onClick={onToggle} aria-label={listening ? "Stop listening" : "Start listening"}>
-        <img src={(listening ? voiceWaveIcon : stopIcon).url} alt="" /><span>{listening ? "Listening…" : "Paused"}</span>
+      <button
+        type="button"
+        className={`listen-pill ${listening ? "active" : ""}`}
+        onClick={onToggle}
+        aria-label={listening ? "Stop listening" : "Start listening"}
+      >
+        <img src={(listening ? voiceWaveIcon : stopIcon).url} alt="" />
+        <span>{listening ? "Listening…" : "Paused"}</span>
       </button>
       <span className="tap-hint">Tap to {listening ? "stop" : "listen"}</span>
     </section>
@@ -126,11 +178,20 @@ function VoiceHero({ listening, onToggle }: { listening: boolean; onToggle: () =
 function Suggestions() {
   return (
     <section className="content-section suggestions-section">
-      <div className="section-heading"><h2>You can say</h2><span>Suggestions&nbsp; ↻</span></div>
+      <div className="section-heading">
+        <h2>You can say</h2>
+        <span>Suggestions&nbsp; ↻</span>
+      </div>
       <div className="suggestion-grid">
         {suggestions.map((item) => (
-          <button type="button" className={`suggestion-card glass-panel ${item.tone}`} key={item.title}>
-            <img src={item.icon.url} alt="" /><strong>{item.title}</strong><span>{item.detail}</span>
+          <button
+            type="button"
+            className={`suggestion-card glass-panel ${item.tone}`}
+            key={item.title}
+          >
+            <img src={item.icon.url} alt="" />
+            <strong>{item.title}</strong>
+            <span>{item.detail}</span>
           </button>
         ))}
       </div>
@@ -141,12 +202,18 @@ function Suggestions() {
 function Recent() {
   return (
     <section className="content-section">
-      <div className="section-heading"><h2>Recent</h2><button type="button">View all&nbsp; ›</button></div>
+      <div className="section-heading">
+        <h2>Recent</h2>
+        <button type="button">View all&nbsp; ›</button>
+      </div>
       <div className="recent-grid">
         {recentItems.map((item) => (
           <button type="button" className="recent-card glass-panel" key={item.name}>
             <span className={`file-badge ${item.tone}`}>{item.ext}</span>
-            <span className="recent-text"><strong>{item.name}</strong><small>{item.detail}</small></span>
+            <span className="recent-text">
+              <strong>{item.name}</strong>
+              <small>{item.detail}</small>
+            </span>
             <b aria-hidden="true">⋮</b>
           </button>
         ))}
@@ -163,11 +230,29 @@ function Brief() {
   ];
   return (
     <section className="brief glass-panel">
-      <div className="section-heading brief-heading"><h2><span>☀</span> Today’s brief</h2><button type="button">View all&nbsp; ›</button></div>
+      <div className="section-heading brief-heading">
+        <h2>
+          <span>☀</span> Today’s brief
+        </h2>
+        <button type="button">View all&nbsp; ›</button>
+      </div>
       <div className="brief-grid">
         {items.map(([icon, number, title, detail, extra]) => (
           <button type="button" className="brief-card" key={title}>
-            <span className="brief-icon">{icon}</span><span><b>{number}</b><strong>{title}</strong><small>{detail}{extra && <><br />{extra}</>}</small></span>
+            <span className="brief-icon">{icon}</span>
+            <span>
+              <b>{number}</b>
+              <strong>{title}</strong>
+              <small>
+                {detail}
+                {extra && (
+                  <>
+                    <br />
+                    {extra}
+                  </>
+                )}
+              </small>
+            </span>
           </button>
         ))}
       </div>
@@ -180,22 +265,47 @@ function CommandBar({ listening, onToggle }: { listening: boolean; onToggle: () 
     <div className="command-dock">
       <div className="command-bar">
         <HaloButton label="Open keyboard" image={keyboardIcon} className="command-side" />
-        <div className="command-center"><span>{listening ? "Speak now…" : "Tap microphone to begin"}</span><div className={`mini-wave ${listening ? "active" : ""}`}>{Array.from({ length: 45 }, (_, i) => <i key={i} style={{ "--i": i } as CSSProperties} />)}</div></div>
-        <HaloButton label={listening ? "Stop listening" : "Start listening"} image={listening ? stopIcon : micIcon} className="command-mic" onClick={onToggle} />
+        <div className="command-center">
+          <span>{listening ? "Speak now…" : "Tap microphone to begin"}</span>
+          <div className={`mini-wave ${listening ? "active" : ""}`}>
+            {Array.from({ length: 45 }, (_, i) => (
+              <i key={i} style={{ "--i": i } as CSSProperties} />
+            ))}
+          </div>
+        </div>
+        <HaloButton
+          label={listening ? "Stop listening" : "Start listening"}
+          image={listening ? stopIcon : micIcon}
+          className="command-mic"
+          onClick={onToggle}
+        />
       </div>
     </div>
   );
 }
 
 function BottomNav() {
-  const items = [["Home", "⌂"], ["Chat", "◌"], ["Orb", ""], ["Documents", "□"], ["Settings", "⚙"]] as const;
+  const items = [
+    ["Home", "⌂"],
+    ["Chat", "◌"],
+    ["Orb", ""],
+    ["Documents", "□"],
+    ["Settings", "⚙"],
+  ] as const;
   return (
     <nav className="bottom-nav" aria-label="Primary navigation">
-      {items.map(([label, glyph], index) => index === 2 ? (
-        <button type="button" className="nav-orb" aria-label="Voice" key={label}><img src={orb.url} alt="" /></button>
-      ) : (
-        <button type="button" className={`nav-item ${index === 0 ? "active" : ""}`} key={label}><b aria-hidden="true">{glyph}</b><span>{label}</span></button>
-      ))}
+      {items.map(([label, glyph], index) =>
+        index === 2 ? (
+          <button type="button" className="nav-orb" aria-label="Voice" key={label}>
+            <img src={orb.url} alt="" />
+          </button>
+        ) : (
+          <button type="button" className={`nav-item ${index === 0 ? "active" : ""}`} key={label}>
+            <b aria-hidden="true">{glyph}</b>
+            <span>{label}</span>
+          </button>
+        ),
+      )}
     </nav>
   );
 }
@@ -209,13 +319,31 @@ function Drawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   }, [open, onClose]);
   return (
     <div className={`drawer-layer ${open ? "open" : ""}`} aria-hidden={!open}>
-      <button type="button" aria-label="Close menu" className="drawer-backdrop" onClick={onClose} tabIndex={open ? 0 : -1} />
+      <button
+        type="button"
+        aria-label="Close menu"
+        className="drawer-backdrop"
+        onClick={onClose}
+        tabIndex={open ? 0 : -1}
+      />
       <aside className="halo-drawer" aria-label="HALO modules">
-        <div className="drawer-brand"><Brand /><HaloButton label="Close menu" className="drawer-close" onClick={onClose}>×</HaloButton></div>
+        <div className="drawer-brand">
+          <Brand />
+          <HaloButton label="Close menu" className="drawer-close" onClick={onClose}>
+            ×
+          </HaloButton>
+        </div>
         <nav>
           {navItems.map(([name, icon], index) => (
-            <button type="button" className={`${name === "Voice" ? "active" : ""} ${index === 8 ? "drawer-divider" : ""}`} disabled={name !== "Voice"} key={name}>
-              <img src={icon.url} alt="" /><span>{name}</span>{name === "Voice" && <i />}
+            <button
+              type="button"
+              className={`${name === "Voice" ? "active" : ""} ${index === 8 ? "drawer-divider" : ""}`}
+              disabled={name !== "Voice"}
+              key={name}
+            >
+              <img src={icon.url} alt="" />
+              <span>{name}</span>
+              {name === "Voice" && <i />}
             </button>
           ))}
         </nav>
@@ -233,10 +361,18 @@ export function HaloVoice() {
       <div className="star-field" aria-hidden="true" />
       <div className="halo-page">
         <Header onMenu={() => setDrawerOpen(true)} />
-        <div className="voice-top"><VoiceHero listening={listening} onToggle={toggleListening} /><ActivityPanel /></div>
-        <Suggestions /><Recent /><Brief />
+        <div className="voice-top">
+          <VoiceHero listening={listening} onToggle={toggleListening} />
+          <ActivityPanel />
+        </div>
+        <Suggestions />
+        <Recent />
+        <Brief />
       </div>
-      <div className="bottom-stack"><CommandBar listening={listening} onToggle={toggleListening} /><BottomNav /></div>
+      <div className="bottom-stack">
+        <CommandBar listening={listening} onToggle={toggleListening} />
+        <BottomNav />
+      </div>
       <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </main>
   );
