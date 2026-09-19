@@ -1,16 +1,11 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { useRive } from "@rive-app/react-canvas";
 
 import logo from "@/assets/halo/ic_logo_hal.png.asset.json";
 import orb from "@/assets/halo/ic_halo_orb.png.asset.json";
 import assistant from "@/assets/halo/assistant.riv.asset.json";
 import menuIcon from "@/assets/halo/ic_menu.png.asset.json";
-import settingsIcon from "@/assets/halo/ic_voice_settings.png.asset.json";
-import keyboardIcon from "@/assets/halo/ic_voice_keyboard.png.asset.json";
 import micIcon from "@/assets/halo/ic_voice_mic.png.asset.json";
-import stopIcon from "@/assets/halo/ic_voice_stop.png.asset.json";
-import voiceWaveIcon from "@/assets/halo/ic_voice_wave.png.asset.json";
-import commandsIcon from "@/assets/halo/ic_voice_commands.png.asset.json";
 import searchIcon from "@/assets/halo/ic_search.png.asset.json";
 import voiceNavIcon from "@/assets/halo/ic_drawer_voice.png.asset.json";
 import chatNavIcon from "@/assets/halo/ic_drawer_chat.png.asset.json";
