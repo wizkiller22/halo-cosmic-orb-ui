@@ -317,10 +317,6 @@ export function HaloVoice() {
         <Recent />
         <Brief />
       </div>
-      <div className="bottom-stack">
-        <CommandBar listening={listening} onToggle={toggleListening} />
-        <BottomNav />
-      </div>
       <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </main>
   );
