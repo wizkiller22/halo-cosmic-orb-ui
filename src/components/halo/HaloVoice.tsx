@@ -286,24 +286,24 @@ function CommandBar({ listening, onToggle }: { listening: boolean; onToggle: () 
 
 function BottomNav() {
   const items = [
-    ["Home", "⌂"],
-    ["Chat", "◌"],
-    ["Orb", ""],
-    ["Documents", "□"],
-    ["Settings", "⚙"],
+    ["Home", voiceNavIcon],
+    ["Chat", chatNavIcon],
+    ["Orb", orb],
+    ["Documents", docsNavIcon],
+    ["Settings", drawerSettingsIcon],
   ] as const;
   return (
     <nav className="bottom-nav" aria-label="Primary navigation">
-      {items.map(([label, glyph], index) =>
+      {items.map(([label, icon], index) =>
         index === 2 ? (
           <button type="button" className="nav-orb" aria-label="Voice" key={label}>
             <img src={orb.url} alt="" />
           </button>
         ) : (
-          <button type="button" className={`nav-item ${index === 0 ? "active" : ""}`} key={label}>
-            <b aria-hidden="true">{glyph}</b>
+          <HaloButton label={label} className={`nav-item ${index === 0 ? "active" : ""}`} key={label}>
+            <img src={icon.url} alt="" aria-hidden="true" />
             <span>{label}</span>
-          </button>
+          </HaloButton>
         ),
       )}
     </nav>

@@ -42,6 +42,7 @@
     inset 0 0 22px color-mix(in oklab, var(--electric-blue) 5%, transparent),
     0 16px 48px oklch(0 0 0 / 24%);
   --radius: 1.4rem;
+  --dock-height: calc(186px + max(10px, env(safe-area-inset-bottom)));
 }
 
 * {
@@ -67,8 +68,8 @@ button:focus-visible {
 }
 
 .halo-shell {
-  min-height: 100dvh;
-  overflow-x: hidden;
+  height: 100dvh;
+  overflow: hidden;
   background:
     radial-gradient(
       circle at 50% 18%,
@@ -103,12 +104,16 @@ button:focus-visible {
   position: relative;
   width: min(100%, 1220px);
   margin-inline: auto;
-  padding: 20px 24px 220px;
+  height: calc(100dvh - var(--dock-height));
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  padding: 20px 24px 24px;
 }
 .halo-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: start;
+  align-items: center;
   min-height: 82px;
 }
 .halo-button {
@@ -162,6 +167,7 @@ button:focus-visible {
 }
 .header-actions {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   gap: 12px;
 }
@@ -280,7 +286,6 @@ button:focus-visible {
   z-index: 2;
   width: 300px;
   height: 300px;
-  mix-blend-mode: screen;
 }
 .orb-animation canvas {
   width: 100% !important;
@@ -606,6 +611,7 @@ button:focus-visible {
 }
 .command-center > span {
   font-size: 15px;
+  text-align: center;
 }
 .mini-wave {
   width: 100%;
@@ -661,9 +667,11 @@ button:focus-visible {
   gap: 10px;
   cursor: pointer;
 }
-.nav-item b {
-  font-size: 27px;
-  font-weight: 400;
+.nav-item img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .nav-item.active {
   color: var(--foreground);
@@ -676,10 +684,10 @@ button:focus-visible {
 .nav-orb {
   border: 0;
   background: transparent;
-  height: 76px;
-  width: 76px;
-  align-self: end;
-  margin: 0 auto -1px;
+  height: 62px;
+  width: 62px;
+  align-self: center;
+  margin: 0 auto;
   cursor: pointer;
 }
 .nav-orb img {
@@ -801,12 +809,15 @@ button:focus-visible {
 }
 
 @media (max-width: 800px) {
+  :root {
+    --dock-height: calc(169px + max(10px, env(safe-area-inset-bottom)));
+  }
   .halo-page {
-    padding: 14px 14px 216px;
+    padding: 14px 14px 24px;
   }
   .halo-header {
     min-height: 70px;
-    align-items: start;
+    align-items: center;
   }
   .header-icon {
     width: 46px;
@@ -1005,13 +1016,13 @@ button:focus-visible {
     flex-direction: column;
     font-size: 10px;
   }
-  .nav-item b {
-    font-size: 20px;
-    line-height: 16px;
+  .nav-item img {
+    width: 26px;
+    height: 26px;
   }
   .nav-orb {
-    width: 62px;
-    height: 62px;
+    width: 55px;
+    height: 55px;
   }
   .halo-drawer {
     padding: 28px 22px;
@@ -1026,6 +1037,23 @@ button:focus-visible {
 }
 
 @media (max-width: 560px) {
+  .header-actions {
+    gap: 6px;
+  }
+  .header-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .header-icon img {
+    width: 34px;
+    height: 34px;
+  }
+  .pro-button {
+    width: 32px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+  }
   .activity-panel {
     display: none;
   }
@@ -1074,8 +1102,5 @@ button:focus-visible {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-  .bottom-nav .nav-item:nth-of-type(4) span {
-    display: none;
   }
 }
