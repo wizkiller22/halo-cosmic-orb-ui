@@ -42,7 +42,7 @@
     inset 0 0 22px color-mix(in oklab, var(--electric-blue) 5%, transparent),
     0 16px 48px oklch(0 0 0 / 24%);
   --radius: 1.4rem;
-  --dock-height: calc(186px + max(10px, env(safe-area-inset-bottom)));
+  --dock-height: 0px;
 }
 
 * {
@@ -217,8 +217,8 @@ button:focus-visible {
   font-size: 16px;
 }
 .orb-stage {
-  width: min(100%, 620px);
-  height: 365px;
+  width: min(100%, 680px);
+  height: 420px;
   position: relative;
   display: grid;
   place-items: center;
@@ -276,16 +276,16 @@ button:focus-visible {
 }
 .orb-glow {
   position: absolute;
-  width: 245px;
-  height: 245px;
+  width: 290px;
+  height: 290px;
   border-radius: 50%;
   background: color-mix(in oklab, var(--primary) 13%, transparent);
   filter: blur(35px);
 }
 .orb-animation {
   z-index: 2;
-  width: 300px;
-  height: 300px;
+  width: 354px;
+  height: 354px;
 }
 .orb-animation canvas {
   width: 100% !important;
@@ -295,8 +295,8 @@ button:focus-visible {
 .orb-fallback {
   position: absolute;
   z-index: 1;
-  width: 225px;
-  height: 225px;
+  width: 265px;
+  height: 265px;
   object-fit: contain;
   filter: drop-shadow(0 0 18px var(--electric-blue)) drop-shadow(0 0 28px var(--primary));
 }
@@ -306,8 +306,8 @@ button:focus-visible {
 .orb-shadow {
   position: absolute;
   bottom: 24px;
-  width: 310px;
-  height: 32px;
+  width: 366px;
+  height: 36px;
   border-radius: 50%;
   background: var(--halo-gradient);
   filter: blur(10px);
@@ -323,32 +323,69 @@ button:focus-visible {
   filter: grayscale(0.45);
   opacity: 0.58;
 }
-.listen-pill {
-  min-width: 185px;
-  height: 46px;
-  margin-top: -5px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: var(--muted-foreground);
+.voice-mic {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  margin-top: -6px;
+  border: 1px solid color-mix(in oklab, var(--primary) 55%, var(--border));
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--surface-strong) 88%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 0 22px color-mix(in oklab, var(--primary) 32%, transparent),
+    inset 0 0 18px color-mix(in oklab, var(--electric-blue) 12%, transparent);
+  display: grid;
+  place-items: center;
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
 }
-.listen-pill img {
-  width: 32px;
-  height: 32px;
+.voice-mic:hover {
+  transform: translateY(-2px);
+}
+.voice-mic img {
+  width: 44px;
+  height: 44px;
   object-fit: contain;
+  position: relative;
+  z-index: 2;
 }
-.listen-pill.active {
-  color: var(--neon-green);
+.voice-mic-ripple {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
+  opacity: 0;
 }
-.tap-hint {
-  margin-top: 8px;
+.voice-mic.active {
+  border-color: color-mix(in oklab, var(--accent) 70%, transparent);
+  box-shadow:
+    0 0 32px color-mix(in oklab, var(--primary) 50%, transparent),
+    0 0 60px color-mix(in oklab, var(--accent) 22%, transparent);
+}
+.voice-mic.active .voice-mic-ripple {
+  animation: halo-ripple 2s ease-out infinite;
+}
+@keyframes halo-ripple {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+.voice-state {
+  margin-top: 12px;
   color: var(--muted-foreground);
-  font-size: 13px;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+.voice-state.active {
+  color: var(--neon-green);
 }
 .glass-panel {
   border: 1px solid var(--border);
