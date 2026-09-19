@@ -1,16 +1,11 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { useRive } from "@rive-app/react-canvas";
 
 import logo from "@/assets/halo/ic_logo_hal.png.asset.json";
 import orb from "@/assets/halo/ic_halo_orb.png.asset.json";
 import assistant from "@/assets/halo/assistant.riv.asset.json";
 import menuIcon from "@/assets/halo/ic_menu.png.asset.json";
-import settingsIcon from "@/assets/halo/ic_voice_settings.png.asset.json";
-import keyboardIcon from "@/assets/halo/ic_voice_keyboard.png.asset.json";
 import micIcon from "@/assets/halo/ic_voice_mic.png.asset.json";
-import stopIcon from "@/assets/halo/ic_voice_stop.png.asset.json";
-import voiceWaveIcon from "@/assets/halo/ic_voice_wave.png.asset.json";
-import commandsIcon from "@/assets/halo/ic_voice_commands.png.asset.json";
 import searchIcon from "@/assets/halo/ic_search.png.asset.json";
 import voiceNavIcon from "@/assets/halo/ic_drawer_voice.png.asset.json";
 import chatNavIcon from "@/assets/halo/ic_drawer_chat.png.asset.json";
@@ -100,7 +95,7 @@ function Header({ onMenu }: { onMenu: () => void }) {
           <span aria-hidden="true">♛</span>
           <b>Pro</b>
         </HaloButton>
-        <HaloButton label="Voice settings" image={settingsIcon} className="header-icon" />
+        <HaloButton label="Search HALO" image={searchIcon} className="header-icon" />
       </div>
     </header>
   );
@@ -163,14 +158,16 @@ function VoiceHero({ listening, onToggle }: { listening: boolean; onToggle: () =
       <Orb listening={listening} />
       <button
         type="button"
-        className={`listen-pill ${listening ? "active" : ""}`}
+        className={`voice-mic ${listening ? "active" : ""}`}
         onClick={onToggle}
         aria-label={listening ? "Stop listening" : "Start listening"}
       >
-        <img src={(listening ? voiceWaveIcon : stopIcon).url} alt="" />
-        <span>{listening ? "Listening…" : "Paused"}</span>
+        <span className="voice-mic-ripple" aria-hidden="true" />
+        <img src={micIcon.url} alt="" aria-hidden="true" />
       </button>
-      <span className="tap-hint">Tap to {listening ? "stop" : "listen"}</span>
+      <span className={`voice-state ${listening ? "active" : ""}`}>
+        {listening ? "Listening…" : "Tap to speak"}
+      </span>
     </section>
   );
 }
@@ -260,55 +257,6 @@ function Brief() {
   );
 }
 
-function CommandBar({ listening, onToggle }: { listening: boolean; onToggle: () => void }) {
-  return (
-    <div className="command-dock">
-      <div className="command-bar">
-        <HaloButton label="Open keyboard" image={keyboardIcon} className="command-side" />
-        <div className="command-center">
-          <span>{listening ? "Speak now…" : "Tap microphone to begin"}</span>
-          <div className={`mini-wave ${listening ? "active" : ""}`}>
-            {Array.from({ length: 45 }, (_, i) => (
-              <i key={i} style={{ "--i": i } as CSSProperties} />
-            ))}
-          </div>
-        </div>
-        <HaloButton
-          label={listening ? "Stop listening" : "Start listening"}
-          image={listening ? stopIcon : micIcon}
-          className="command-mic"
-          onClick={onToggle}
-        />
-      </div>
-    </div>
-  );
-}
-
-function BottomNav() {
-  const items = [
-    ["Home", voiceNavIcon],
-    ["Chat", chatNavIcon],
-    ["Orb", orb],
-    ["Documents", docsNavIcon],
-    ["Settings", drawerSettingsIcon],
-  ] as const;
-  return (
-    <nav className="bottom-nav" aria-label="Primary navigation">
-      {items.map(([label, icon], index) =>
-        index === 2 ? (
-          <button type="button" className="nav-orb" aria-label="Voice" key={label}>
-            <img src={orb.url} alt="" />
-          </button>
-        ) : (
-          <HaloButton label={label} className={`nav-item ${index === 0 ? "active" : ""}`} key={label}>
-            <img src={icon.url} alt="" aria-hidden="true" />
-            <span>{label}</span>
-          </HaloButton>
-        ),
-      )}
-    </nav>
-  );
-}
 
 function Drawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
@@ -368,10 +316,6 @@ export function HaloVoice() {
         <Suggestions />
         <Recent />
         <Brief />
-      </div>
-      <div className="bottom-stack">
-        <CommandBar listening={listening} onToggle={toggleListening} />
-        <BottomNav />
       </div>
       <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </main>
