@@ -68,8 +68,7 @@ button:focus-visible {
 }
 
 .halo-shell {
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100dvh;
   background:
     radial-gradient(
       circle at 50% 18%,
@@ -104,8 +103,7 @@ button:focus-visible {
   position: relative;
   width: min(100%, 1220px);
   margin-inline: auto;
-  height: calc(100dvh - var(--dock-height));
-  overflow-y: auto;
+  min-height: 100dvh;
   overflow-x: hidden;
   scrollbar-width: thin;
   padding: 20px 24px 24px;
@@ -218,7 +216,7 @@ button:focus-visible {
 }
 .orb-stage {
   width: min(100%, 680px);
-  height: 420px;
+  height: 375px;
   position: relative;
   display: grid;
   place-items: center;
@@ -382,7 +380,7 @@ button:focus-visible {
   margin-top: 12px;
   color: var(--muted-foreground);
   font-size: 14px;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
 }
 .voice-state.active {
   color: var(--neon-green);
@@ -847,7 +845,7 @@ button:focus-visible {
 
 @media (max-width: 800px) {
   :root {
-    --dock-height: calc(169px + max(10px, env(safe-area-inset-bottom)));
+    --dock-height: 0px;
   }
   .halo-page {
     padding: 14px 14px 24px;
@@ -925,12 +923,12 @@ button:focus-visible {
     font-size: 13px;
   }
   .orb-stage {
-    height: 285px;
+    height: 310px;
     margin-top: 3px;
   }
   .orb-animation {
-    width: 245px;
-    height: 245px;
+    width: 289px;
+    height: 289px;
   }
   .orb-fallback {
     width: 188px;
@@ -1104,11 +1102,11 @@ button:focus-visible {
     font-size: 25px;
   }
   .orb-stage {
-    height: 270px;
+    height: 292px;
   }
   .orb-animation {
-    width: 230px;
-    height: 230px;
+    width: 271px;
+    height: 271px;
   }
   .orb-fallback {
     width: 176px;
@@ -1140,4 +1138,37 @@ button:focus-visible {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+/* Unframed canonical header artwork and compact web voice control. */
+.header-icon {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.pro-button {
+  height: 36px;
+  padding: 0 8px;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+}
+.pro-button img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.pro-button b { font-size: 13px; }
+.voice-mic { width: 64px; height: 64px; flex-shrink: 0; }
+.orb-animation { max-width: 100%; aspect-ratio: 1; }
+@media (min-width: 561px) and (max-width: 800px) {
+  .activity-panel { position: static; width: 100%; margin-top: 20px; }
+  .activity-list { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .header-actions { gap: 2px; }
+  .pro-button { width: 28px; height: 36px; }
+  .pro-button img { width: 28px; height: 28px; }
+  .halo-wordmark img:first-child { width: 86px; }
+  .halo-wordmark img:last-child { width: 30px; height: 30px; }
 }

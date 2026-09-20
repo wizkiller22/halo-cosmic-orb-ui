@@ -92,7 +92,7 @@ function Header({ onMenu }: { onMenu: () => void }) {
       <Brand />
       <div className="header-actions">
         <HaloButton label="View Pro plan" className="pro-button">
-          <span aria-hidden="true">♛</span>
+          <img src={plansNavIcon.url} alt="" aria-hidden="true" />
           <b>Pro</b>
         </HaloButton>
         <HaloButton label="Search HALO" image={searchIcon} className="header-icon" />
@@ -113,12 +113,10 @@ function Orb({ listening }: { listening: boolean }) {
         <span />
         <span />
       </div>
-      <div className="orb-glow" />
       <div className="orb-animation">
         <RiveComponent aria-label="HALO assistant orb" />
       </div>
       <img className="orb-fallback" src={orb.url} alt="HALO assistant orb" />
-      <div className="orb-shadow" />
     </div>
   );
 }
@@ -153,19 +151,19 @@ function VoiceHero({ listening, onToggle }: { listening: boolean; onToggle: () =
     <section className="voice-hero">
       <div className="voice-copy">
         <h1>{listening ? "I’m listening" : "Voice paused"}</h1>
-        <p>{listening ? "Speak naturally, I’m here to help." : "Tap the Orb when you’re ready."}</p>
+        <p>{listening ? "Speak naturally, I’m here to help." : "Tap the microphone when you’re ready."}</p>
       </div>
       <Orb listening={listening} />
-      <button
-        type="button"
+      <HaloButton
         className={`voice-mic ${listening ? "active" : ""}`}
         onClick={onToggle}
-        aria-label={listening ? "Stop listening" : "Start listening"}
+        label={listening ? "Stop listening" : "Start listening"}
+        aria-pressed={listening}
       >
         <span className="voice-mic-ripple" aria-hidden="true" />
         <img src={micIcon.url} alt="" aria-hidden="true" />
-      </button>
-      <span className={`voice-state ${listening ? "active" : ""}`}>
+      </HaloButton>
+      <span role="status" className={`voice-state ${listening ? "active" : ""}`}>
         {listening ? "Listening…" : "Tap to speak"}
       </span>
     </section>
