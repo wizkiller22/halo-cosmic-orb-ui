@@ -1140,35 +1140,154 @@ button:focus-visible {
   }
 }
 
-/* Unframed canonical header artwork and compact web voice control. */
+/* Targeted refinement: header scale, Pro row, calm orb area, official icons. */
 .header-icon {
   border: 0;
   background: transparent;
   box-shadow: none;
+  width: 62px;
+  height: 62px;
 }
-.pro-button {
-  height: 36px;
-  padding: 0 8px;
+.header-icon img {
+  width: 56px;
+  height: 56px;
+}
+.search-button {
+  justify-self: end;
+}
+.pro-row {
+  display: flex;
+  justify-content: center;
+  margin-top: -4px;
+}
+.pro-badge {
+  border: 1px solid color-mix(in oklab, var(--orange) 32%, var(--border));
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+  cursor: pointer;
+}
+.orb-animation {
+  max-width: 100%;
+  aspect-ratio: 1;
+}
+/* Compact, calm microphone: no ring, only a faint halo. */
+.voice-mic {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px color-mix(in oklab, var(--primary) 22%, transparent);
+}
+.voice-mic img {
+  width: 34px;
+  height: 34px;
+}
+.voice-mic.active {
+  box-shadow: 0 0 20px color-mix(in oklab, var(--primary) 30%, transparent);
+  animation: halo-mic-breathe 4.5s ease-in-out infinite;
+}
+@keyframes halo-mic-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 16px color-mix(in oklab, var(--primary) 22%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 24px color-mix(in oklab, var(--primary) 34%, transparent);
+  }
+}
+/* Official HALO artwork in content sections. */
+.activity-row {
+  grid-template-columns: 26px 1fr;
+}
+.activity-row img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.suggestion-card img {
+  align-self: center;
+  width: 46px;
+  height: 46px;
+}
+.recent-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+.view-all {
+  display: inline-flex;
+  align-items: center;
   gap: 4px;
   border: 0;
   background: transparent;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  cursor: pointer;
 }
-.pro-button img {
-  width: 30px;
-  height: 30px;
+.view-all img {
+  width: 16px;
+  height: 16px;
   object-fit: contain;
 }
-.pro-button b { font-size: 13px; }
-.voice-mic { width: 64px; height: 64px; flex-shrink: 0; }
-.orb-animation { max-width: 100%; aspect-ratio: 1; }
+.brief-heading h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.brief-heading h2 img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+img.brief-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  text-shadow: none;
+}
 @media (min-width: 561px) and (max-width: 800px) {
-  .activity-panel { position: static; width: 100%; margin-top: 20px; }
-  .activity-list { display: grid; grid-template-columns: 1fr 1fr; }
+  .activity-panel {
+    position: static;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .activity-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 800px) {
+  .header-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .header-icon img {
+    width: 46px;
+    height: 46px;
+  }
+  img.brief-icon {
+    width: 32px;
+    height: 32px;
+  }
 }
 @media (max-width: 560px) {
-  .header-actions { gap: 2px; }
-  .pro-button { width: 28px; height: 36px; }
-  .pro-button img { width: 28px; height: 28px; }
-  .halo-wordmark img:first-child { width: 86px; }
-  .halo-wordmark img:last-child { width: 30px; height: 30px; }
+  .halo-wordmark img:first-child {
+    width: 86px;
+  }
+  .halo-wordmark img:last-child {
+    width: 30px;
+    height: 30px;
+  }
+  .header-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .header-icon img {
+    width: 40px;
+    height: 40px;
+  }
 }
