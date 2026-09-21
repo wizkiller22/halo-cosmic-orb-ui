@@ -80,9 +80,9 @@ const activityRows = [
 ] as const;
 
 const briefItems = [
-  { icon: briefMeetings, number: "2", title: "Meetings", detail: "Next: Project review", extra: "11:00 AM" },
-  { icon: briefTasks, number: "5", title: "Tasks", detail: "3 in progress", extra: "" },
-  { icon: briefDocuments, number: "3", title: "Documents", detail: "Opened recently", extra: "" },
+  { icon: briefMeetings, title: "Next up", detail: "Project review", time: "11:00 AM" },
+  { icon: briefTasks, title: "Tasks", detail: "3 tasks in progress", time: "" },
+  { icon: briefDocuments, title: "Documents", detail: "3 recently opened", time: "" },
 ] as const;
 
 function HaloButton({ label, image, className = "", children, ...props }: HaloButtonProps) {
@@ -264,19 +264,11 @@ function Brief() {
         {briefItems.map((item) => (
           <button type="button" className="brief-card" key={item.title}>
             <img className="brief-icon" src={item.icon.url} alt="" aria-hidden="true" />
-            <span>
-              <b>{item.number}</b>
+            <span className="brief-text">
               <strong>{item.title}</strong>
-              <small>
-                {item.detail}
-                {item.extra && (
-                  <>
-                    <br />
-                    {item.extra}
-                  </>
-                )}
-              </small>
+              <small>{item.detail}</small>
             </span>
+            {item.time && <em className="brief-time">{item.time}</em>}
           </button>
         ))}
       </div>
