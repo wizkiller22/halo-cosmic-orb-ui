@@ -157,6 +157,7 @@ button:focus-visible {
   height: 39px;
   margin-left: 7px;
   object-fit: contain;
+  transform: scale(0.94);
   filter: drop-shadow(0 0 9px var(--primary));
 }
 .halo-brand > span {
@@ -316,10 +317,19 @@ button:focus-visible {
 .is-listening .orb-shadow {
   animation: halo-pulse 2.3s ease-in-out infinite;
 }
-.is-paused .orb-animation,
-.is-paused .orb-fallback {
-  filter: grayscale(0.45);
-  opacity: 0.58;
+.orb-stage.is-paused {
+  animation: halo-orb-idle 6s ease-in-out infinite;
+}
+.orb-stage.is-listening {
+  animation: halo-orb-listening 3.6s ease-in-out infinite;
+}
+@keyframes halo-orb-idle {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.09); }
+}
+@keyframes halo-orb-listening {
+  0%, 100% { filter: brightness(1.12); }
+  50% { filter: brightness(1.27); }
 }
 .voice-mic {
   position: relative;
@@ -406,6 +416,7 @@ button:focus-visible {
   font-size: 15px;
 }
 .activity-title i {
+  display: none;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -472,8 +483,8 @@ button:focus-visible {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
   cursor: pointer;
 }
 .suggestion-card img {
@@ -1149,8 +1160,9 @@ button:focus-visible {
   height: 62px;
 }
 .header-icon img {
-  width: 56px;
-  height: 56px;
+  width: 62px;
+  height: 62px;
+  transform: translateY(-7px);
 }
 .search-button {
   justify-self: end;
@@ -1180,15 +1192,22 @@ button:focus-visible {
   width: 64px;
   height: 64px;
   flex-shrink: 0;
-  box-shadow: 0 0 16px color-mix(in oklab, var(--primary) 22%, transparent);
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 .voice-mic img {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 0 5px color-mix(in oklab, var(--primary) 25%, transparent));
 }
 .voice-mic.active {
-  box-shadow: 0 0 20px color-mix(in oklab, var(--primary) 30%, transparent);
-  animation: halo-mic-breathe 4.5s ease-in-out infinite;
+  box-shadow: none;
+  animation: none;
+}
+.voice-mic.active img {
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--primary) 45%, transparent));
 }
 @keyframes halo-mic-breathe {
   0%,
@@ -1266,8 +1285,8 @@ img.brief-icon {
     height: 50px;
   }
   .header-icon img {
-    width: 46px;
-    height: 46px;
+    width: 50px;
+    height: 50px;
   }
   img.brief-icon {
     width: 32px;
@@ -1287,7 +1306,7 @@ img.brief-icon {
     height: 44px;
   }
   .header-icon img {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 }
