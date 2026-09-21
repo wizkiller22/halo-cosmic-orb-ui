@@ -264,19 +264,11 @@ function Brief() {
         {briefItems.map((item) => (
           <button type="button" className="brief-card" key={item.title}>
             <img className="brief-icon" src={item.icon.url} alt="" aria-hidden="true" />
-            <span>
-              <b>{item.number}</b>
+            <span className="brief-text">
               <strong>{item.title}</strong>
-              <small>
-                {item.detail}
-                {item.extra && (
-                  <>
-                    <br />
-                    {item.extra}
-                  </>
-                )}
-              </small>
+              <small>{item.detail}</small>
             </span>
+            {item.time && <em className="brief-time">{item.time}</em>}
           </button>
         ))}
       </div>
