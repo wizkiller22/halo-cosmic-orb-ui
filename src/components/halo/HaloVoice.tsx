@@ -80,9 +80,9 @@ const activityRows = [
 ] as const;
 
 const briefItems = [
-  { icon: briefMeetings, number: "2", title: "Meetings", detail: "Next: Project review", extra: "11:00 AM" },
-  { icon: briefTasks, number: "5", title: "Tasks", detail: "3 in progress", extra: "" },
-  { icon: briefDocuments, number: "3", title: "Documents", detail: "Opened recently", extra: "" },
+  { icon: briefMeetings, title: "Next up", detail: "Project review", time: "11:00 AM" },
+  { icon: briefTasks, title: "Tasks", detail: "3 tasks in progress", time: "" },
+  { icon: briefDocuments, title: "Documents", detail: "3 recently opened", time: "" },
 ] as const;
 
 function HaloButton({ label, image, className = "", children, ...props }: HaloButtonProps) {
