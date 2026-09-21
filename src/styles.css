@@ -1312,6 +1312,7 @@ img.brief-icon {
 }
 
 /* Today's brief: compact stacked assistant-style rows. */
+.brief-grid {
   display: flex;
   flex-direction: column;
   gap: 10px;
