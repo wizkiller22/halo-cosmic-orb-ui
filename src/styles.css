@@ -1310,3 +1310,65 @@ img.brief-icon {
     height: 44px;
   }
 }
+
+/* Today's brief: compact stacked assistant-style rows. */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  grid-template-columns: none;
+}
+.brief-card {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  text-align: left;
+}
+.brief-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.brief-card strong {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--foreground);
+  white-space: normal;
+}
+.brief-card small {
+  margin-top: 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted-foreground);
+}
+.brief-time {
+  font-style: normal;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+img.brief-icon {
+  width: 30px;
+  height: 30px;
+}
+@media (max-width: 800px) {
+  .brief-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .brief-card {
+    display: grid;
+    grid-template-columns: 30px 1fr auto;
+    min-height: 0;
+    padding: 11px 12px;
+  }
+  img.brief-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
