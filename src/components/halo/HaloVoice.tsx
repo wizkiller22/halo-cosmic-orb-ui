@@ -1,23 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { useRive } from "@rive-app/react-canvas";
 
-import logo from "@/assets/halo/ic_logo_hal.png.asset.json";
+import { HaloButton, HaloLayout } from "@/components/halo/HaloChrome";
+
 import orb from "@/assets/halo/ic_halo_orb.png.asset.json";
 import assistant from "@/assets/halo/assistant.riv.asset.json";
-import menuIcon from "@/assets/halo/ic_menu.png.asset.json";
 import micIcon from "@/assets/halo/ic_voice_mic.png.asset.json";
-import searchIcon from "@/assets/halo/ic_search.png.asset.json";
-import voiceNavIcon from "@/assets/halo/ic_drawer_voice.png.asset.json";
-import chatNavIcon from "@/assets/halo/ic_drawer_chat.png.asset.json";
-import visionNavIcon from "@/assets/halo/ic_drawer_vision.png.asset.json";
-import docsNavIcon from "@/assets/halo/ic_drawer_documents.png.asset.json";
-import translateNavIcon from "@/assets/halo/ic_drawer_translate.png.asset.json";
-import musicNavIcon from "@/assets/halo/ic_drawer_music.png.asset.json";
-import imagesNavIcon from "@/assets/halo/ic_drawer_images.png.asset.json";
-import memoryNavIcon from "@/assets/halo/ic_drawer_memory.png.asset.json";
-import profileNavIcon from "@/assets/halo/ic_drawer_profile.png.asset.json";
-import plansNavIcon from "@/assets/halo/ic_drawer_plans.png.asset.json";
-import drawerSettingsIcon from "@/assets/halo/ic_drawer_settings.png.asset.json";
+import voiceHubIcon from "@/assets/halo/ic_voice.png.asset.json";
+import historyIcon from "@/assets/halo/ic_history.png.asset.json";
 import suggestionSummarize from "@/assets/halo/ic_suggestion_summarize.png.asset.json";
 import suggestionTranslate from "@/assets/halo/ic_suggestion_translate.png.asset.json";
 import suggestionAnalyze from "@/assets/halo/ic_suggestion_analyze.png.asset.json";
@@ -36,26 +27,6 @@ import activityReady from "@/assets/halo/ic_activity_ready_to_listen.png.asset.j
 import activityMemory from "@/assets/halo/ic_activity_memory_active.png.asset.json";
 import activityOnline from "@/assets/halo/ic_activity_systems_online.png.asset.json";
 import activityContext from "@/assets/halo/ic_activity_context_preserved.png.asset.json";
-
-type Asset = { url: string };
-type HaloButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  label: string;
-  image?: Asset;
-};
-
-const navItems = [
-  ["Voice", voiceNavIcon],
-  ["Chat", chatNavIcon],
-  ["Vision", visionNavIcon],
-  ["Documents", docsNavIcon],
-  ["Translate", translateNavIcon],
-  ["Music", musicNavIcon],
-  ["Images", imagesNavIcon],
-  ["Memory", memoryNavIcon],
-  ["Profile", profileNavIcon],
-  ["Plans & Pricing", plansNavIcon],
-  ["Settings", drawerSettingsIcon],
-] as const;
 
 const suggestions = [
   { title: "Summarize", detail: "this document", icon: suggestionSummarize, tone: "violet" },
@@ -84,58 +55,6 @@ const briefItems = [
   { icon: briefTasks, title: "Tasks", detail: "3 tasks in progress", time: "" },
   { icon: briefDocuments, title: "Documents", detail: "3 recently opened", time: "" },
 ] as const;
-
-function HaloButton({ label, image, className = "", children, ...props }: HaloButtonProps) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      title={label}
-      className={`halo-button ${className}`}
-      {...props}
-    >
-      {image ? <img src={image.url} alt="" aria-hidden="true" /> : children}
-    </button>
-  );
-}
-
-function Brand() {
-  return (
-    <div className="halo-brand" aria-label="HALO AI Assistant">
-      <div className="halo-wordmark">
-        <img src={logo.url} alt="HAL" />
-        <img src={orb.url} alt="O" />
-      </div>
-      <span>AI Assistant</span>
-    </div>
-  );
-}
-
-function Header({ onMenu }: { onMenu: () => void }) {
-  return (
-    <div className="halo-topbar">
-      <header className="halo-header">
-        <HaloButton
-          label="Open menu"
-          image={menuIcon}
-          className="header-icon menu-button"
-          onClick={onMenu}
-        />
-        <Brand />
-        <HaloButton
-          label="Search HALO"
-          image={searchIcon}
-          className="header-icon search-button"
-        />
-      </header>
-      <div className="pro-row">
-        <button type="button" className="pro-badge" aria-label="View Pro plan">
-          Pro
-        </button>
-      </div>
-    </div>
-  );
-}
 
 function Orb({ listening }: { listening: boolean }) {
   const { RiveComponent } = useRive({
@@ -194,6 +113,29 @@ function VoiceHero({ listening, onToggle }: { listening: boolean; onToggle: () =
       <span role="status" className={`voice-state ${listening ? "active" : ""}`}>
         {listening ? "Listening…" : "Tap to speak"}
       </span>
+    </section>
+  );
+}
+
+function VoiceAreas() {
+  return (
+    <section className="content-section voice-areas">
+      <Link to="/voice/hub" className="area-card glass-panel">
+        <img src={voiceHubIcon.url} alt="" aria-hidden="true" />
+        <span className="area-text">
+          <strong>Voice Hub</strong>
+          <small>Create, manage and personalize HALO voices.</small>
+        </span>
+        <em>Open Voice Hub →</em>
+      </Link>
+      <Link to="/voice/history" className="area-card glass-panel">
+        <img src={historyIcon.url} alt="" aria-hidden="true" />
+        <span className="area-text">
+          <strong>Voice History</strong>
+          <small>Review previous voice conversations and commands.</small>
+        </span>
+        <em>Open Voice History →</em>
+      </Link>
     </section>
   );
 }
@@ -276,66 +218,19 @@ function Brief() {
   );
 }
 
-function Drawer({ open, onClose }: { open: boolean; onClose: () => void }) {
-  useEffect(() => {
-    if (!open) return;
-    const close = (event: KeyboardEvent) => event.key === "Escape" && onClose();
-    window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
-  }, [open, onClose]);
-  return (
-    <div className={`drawer-layer ${open ? "open" : ""}`} aria-hidden={!open}>
-      <button
-        type="button"
-        aria-label="Close menu"
-        className="drawer-backdrop"
-        onClick={onClose}
-        tabIndex={open ? 0 : -1}
-      />
-      <aside className="halo-drawer" aria-label="HALO modules">
-        <div className="drawer-brand">
-          <Brand />
-          <HaloButton label="Close menu" className="drawer-close" onClick={onClose}>
-            ×
-          </HaloButton>
-        </div>
-        <nav>
-          {navItems.map(([name, icon], index) => (
-            <button
-              type="button"
-              className={`${name === "Voice" ? "active" : ""} ${index === 8 ? "drawer-divider" : ""}`}
-              disabled={name !== "Voice"}
-              key={name}
-            >
-              <img src={icon.url} alt="" />
-              <span>{name}</span>
-              {name === "Voice" && <i />}
-            </button>
-          ))}
-        </nav>
-      </aside>
-    </div>
-  );
-}
-
 export function HaloVoice() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [listening, setListening] = useState(true);
   const toggleListening = () => setListening((value) => !value);
   return (
-    <main className="halo-shell">
-      <div className="star-field" aria-hidden="true" />
-      <div className="halo-page">
-        <Header onMenu={() => setDrawerOpen(true)} />
-        <div className="voice-top">
-          <VoiceHero listening={listening} onToggle={toggleListening} />
-          <ActivityPanel />
-        </div>
-        <Suggestions />
-        <Recent />
-        <Brief />
+    <HaloLayout>
+      <div className="voice-top">
+        <VoiceHero listening={listening} onToggle={toggleListening} />
+        <ActivityPanel />
       </div>
-      <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-    </main>
+      <VoiceAreas />
+      <Suggestions />
+      <Recent />
+      <Brief />
+    </HaloLayout>
   );
 }
