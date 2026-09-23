@@ -10,33 +10,153 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VoiceCloningRouteImport } from './routes/voice/cloning'
+import { Route as VoiceDesignRouteImport } from './routes/voice/design'
+import { Route as VoiceHistoryRouteImport } from './routes/voice/history'
+import { Route as VoiceHubRouteImport } from './routes/voice/hub'
+import { Route as VoiceMy_voicesRouteImport } from './routes/voice/my_voices'
+import { Route as VoicePreviewRouteImport } from './routes/voice/preview'
+import { Route as VoiceSelectionRouteImport } from './routes/voice/selection'
+import { Route as VoiceSettingsRouteImport } from './routes/voice/settings'
+import { Route as VoiceHistoryDetailRouteImport } from './routes/voice/history.detail'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VoiceCloningRoute = VoiceCloningRouteImport.update({
+  id: '/voice/cloning',
+  path: '/voice/cloning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceDesignRoute = VoiceDesignRouteImport.update({
+  id: '/voice/design',
+  path: '/voice/design',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceHistoryRoute = VoiceHistoryRouteImport.update({
+  id: '/voice/history',
+  path: '/voice/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceHubRoute = VoiceHubRouteImport.update({
+  id: '/voice/hub',
+  path: '/voice/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceMy_voicesRoute = VoiceMy_voicesRouteImport.update({
+  id: '/voice/my_voices',
+  path: '/voice/my_voices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoicePreviewRoute = VoicePreviewRouteImport.update({
+  id: '/voice/preview',
+  path: '/voice/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceSelectionRoute = VoiceSelectionRouteImport.update({
+  id: '/voice/selection',
+  path: '/voice/selection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceSettingsRoute = VoiceSettingsRouteImport.update({
+  id: '/voice/settings',
+  path: '/voice/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceHistoryDetailRoute = VoiceHistoryDetailRouteImport.update({
+  id: '/detail',
+  path: '/detail',
+  getParentRoute: () => VoiceHistoryRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/voice/cloning': typeof VoiceCloningRoute
+  '/voice/design': typeof VoiceDesignRoute
+  '/voice/history': typeof VoiceHistoryRouteWithChildren
+  '/voice/hub': typeof VoiceHubRoute
+  '/voice/my_voices': typeof VoiceMy_voicesRoute
+  '/voice/preview': typeof VoicePreviewRoute
+  '/voice/selection': typeof VoiceSelectionRoute
+  '/voice/settings': typeof VoiceSettingsRoute
+  '/voice/history/detail': typeof VoiceHistoryDetailRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/voice/cloning': typeof VoiceCloningRoute
+  '/voice/design': typeof VoiceDesignRoute
+  '/voice/history': typeof VoiceHistoryRouteWithChildren
+  '/voice/hub': typeof VoiceHubRoute
+  '/voice/my_voices': typeof VoiceMy_voicesRoute
+  '/voice/preview': typeof VoicePreviewRoute
+  '/voice/selection': typeof VoiceSelectionRoute
+  '/voice/settings': typeof VoiceSettingsRoute
+  '/voice/history/detail': typeof VoiceHistoryDetailRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/voice/cloning': typeof VoiceCloningRoute
+  '/voice/design': typeof VoiceDesignRoute
+  '/voice/history': typeof VoiceHistoryRouteWithChildren
+  '/voice/hub': typeof VoiceHubRoute
+  '/voice/my_voices': typeof VoiceMy_voicesRoute
+  '/voice/preview': typeof VoicePreviewRoute
+  '/voice/selection': typeof VoiceSelectionRoute
+  '/voice/settings': typeof VoiceSettingsRoute
+  '/voice/history/detail': typeof VoiceHistoryDetailRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/voice/cloning'
+    | '/voice/design'
+    | '/voice/history'
+    | '/voice/hub'
+    | '/voice/my_voices'
+    | '/voice/preview'
+    | '/voice/selection'
+    | '/voice/settings'
+    | '/voice/history/detail'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/voice/cloning'
+    | '/voice/design'
+    | '/voice/history'
+    | '/voice/hub'
+    | '/voice/my_voices'
+    | '/voice/preview'
+    | '/voice/selection'
+    | '/voice/settings'
+    | '/voice/history/detail'
+  id:
+    | '__root__'
+    | '/'
+    | '/voice/cloning'
+    | '/voice/design'
+    | '/voice/history'
+    | '/voice/hub'
+    | '/voice/my_voices'
+    | '/voice/preview'
+    | '/voice/selection'
+    | '/voice/settings'
+    | '/voice/history/detail'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  VoiceCloningRoute: typeof VoiceCloningRoute
+  VoiceDesignRoute: typeof VoiceDesignRoute
+  VoiceHistoryRoute: typeof VoiceHistoryRouteWithChildren
+  VoiceHubRoute: typeof VoiceHubRoute
+  VoiceMy_voicesRoute: typeof VoiceMy_voicesRoute
+  VoicePreviewRoute: typeof VoicePreviewRoute
+  VoiceSelectionRoute: typeof VoiceSelectionRoute
+  VoiceSettingsRoute: typeof VoiceSettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +168,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/voice/cloning': {
+      id: '/voice/cloning'
+      path: '/voice/cloning'
+      fullPath: '/voice/cloning'
+      preLoaderRoute: typeof VoiceCloningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/design': {
+      id: '/voice/design'
+      path: '/voice/design'
+      fullPath: '/voice/design'
+      preLoaderRoute: typeof VoiceDesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/history': {
+      id: '/voice/history'
+      path: '/voice/history'
+      fullPath: '/voice/history'
+      preLoaderRoute: typeof VoiceHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/hub': {
+      id: '/voice/hub'
+      path: '/voice/hub'
+      fullPath: '/voice/hub'
+      preLoaderRoute: typeof VoiceHubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/my_voices': {
+      id: '/voice/my_voices'
+      path: '/voice/my_voices'
+      fullPath: '/voice/my_voices'
+      preLoaderRoute: typeof VoiceMy_voicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/preview': {
+      id: '/voice/preview'
+      path: '/voice/preview'
+      fullPath: '/voice/preview'
+      preLoaderRoute: typeof VoicePreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/selection': {
+      id: '/voice/selection'
+      path: '/voice/selection'
+      fullPath: '/voice/selection'
+      preLoaderRoute: typeof VoiceSelectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/settings': {
+      id: '/voice/settings'
+      path: '/voice/settings'
+      fullPath: '/voice/settings'
+      preLoaderRoute: typeof VoiceSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/history/detail': {
+      id: '/voice/history/detail'
+      path: '/detail'
+      fullPath: '/voice/history/detail'
+      preLoaderRoute: typeof VoiceHistoryDetailRouteImport
+      parentRoute: typeof VoiceHistoryRoute
+    }
   }
 }
 
+interface VoiceHistoryRouteChildren {
+  VoiceHistoryDetailRoute: typeof VoiceHistoryDetailRoute
+}
+
+const VoiceHistoryRouteChildren: VoiceHistoryRouteChildren = {
+  VoiceHistoryDetailRoute: VoiceHistoryDetailRoute,
+}
+
+const VoiceHistoryRouteWithChildren = VoiceHistoryRoute._addFileChildren(
+  VoiceHistoryRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  VoiceCloningRoute: VoiceCloningRoute,
+  VoiceDesignRoute: VoiceDesignRoute,
+  VoiceHistoryRoute: VoiceHistoryRouteWithChildren,
+  VoiceHubRoute: VoiceHubRoute,
+  VoiceMy_voicesRoute: VoiceMy_voicesRoute,
+  VoicePreviewRoute: VoicePreviewRoute,
+  VoiceSelectionRoute: VoiceSelectionRoute,
+  VoiceSettingsRoute: VoiceSettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

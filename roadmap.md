@@ -1,11 +1,7 @@
-# HALO Voice refinement
+# HALO Voice
 
-- [x] Preserve Rive and supplied icons; enlarge orb and align header.
-- [x] Replace fixed controls with centered microphone and natural page scrolling.
-- [x] Verify desktop/mobile rendering and local controls.
-
-## Targeted micro-adjustments
-- [x] Balance logo and header icons; remove the stray green decoration.
-- [x] Remove microphone disc, enlarge its artwork, and center suggestion text.
-- [x] Keep the Orb visible with restrained idle/listening intensity animation.
-- [x] Verify visual adjustments and demo controls across screen sizes.
+- [x] Voice Home refinements (header, orb, mic, suggestions, Today's brief).
+- [x] Voice Hub screen at /voice/hub (Create your voice, My Voices, Voice Settings).
+- [x] Voice History at /voice/history grouped Today / Yesterday / Earlier, detail at /voice/history/detail.
+- [x] Voice Hub + History entry cards on Voice Home; sub-pages for design, cloning, selection, preview, settings, my_voices.
+- [x] Shared HALO shell (header, drawer, breadcrumb) reused across Voice pages.
