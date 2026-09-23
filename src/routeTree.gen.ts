@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VoiceHistoryRouteImport } from './routes/voice/history'
+import { Route as VoiceHubRouteImport } from './routes/voice/hub'
+import { Route as VoiceHistoryDetailRouteImport } from './routes/voice/history.detail'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VoiceHistoryRoute = VoiceHistoryRouteImport.update({
+  id: '/voice/history',
+  path: '/voice/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceHubRoute = VoiceHubRouteImport.update({
+  id: '/voice/hub',
+  path: '/voice/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoiceHistoryDetailRoute = VoiceHistoryDetailRouteImport.update({
+  id: '/detail',
+  path: '/detail',
+  getParentRoute: () => VoiceHistoryRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/voice/history': typeof VoiceHistoryRouteWithChildren
+  '/voice/hub': typeof VoiceHubRoute
+  '/voice/history/detail': typeof VoiceHistoryDetailRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/voice/history': typeof VoiceHistoryRouteWithChildren
+  '/voice/hub': typeof VoiceHubRoute
+  '/voice/history/detail': typeof VoiceHistoryDetailRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/voice/history': typeof VoiceHistoryRouteWithChildren
+  '/voice/hub': typeof VoiceHubRoute
+  '/voice/history/detail': typeof VoiceHistoryDetailRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/voice/history' | '/voice/hub' | '/voice/history/detail'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/voice/history' | '/voice/hub' | '/voice/history/detail'
+  id:
+    '__root__' | '/' | '/voice/history' | '/voice/hub' | '/voice/history/detail'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  VoiceHistoryRoute: typeof VoiceHistoryRouteWithChildren
+  VoiceHubRoute: typeof VoiceHubRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/voice/history': {
+      id: '/voice/history'
+      path: '/voice/history'
+      fullPath: '/voice/history'
+      preLoaderRoute: typeof VoiceHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/hub': {
+      id: '/voice/hub'
+      path: '/voice/hub'
+      fullPath: '/voice/hub'
+      preLoaderRoute: typeof VoiceHubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voice/history/detail': {
+      id: '/voice/history/detail'
+      path: '/detail'
+      fullPath: '/voice/history/detail'
+      preLoaderRoute: typeof VoiceHistoryDetailRouteImport
+      parentRoute: typeof VoiceHistoryRoute
+    }
   }
 }
 
+interface VoiceHistoryRouteChildren {
+  VoiceHistoryDetailRoute: typeof VoiceHistoryDetailRoute
+}
+
+const VoiceHistoryRouteChildren: VoiceHistoryRouteChildren = {
+  VoiceHistoryDetailRoute: VoiceHistoryDetailRoute,
+}
+
+const VoiceHistoryRouteWithChildren = VoiceHistoryRoute._addFileChildren(
+  VoiceHistoryRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  VoiceHistoryRoute: VoiceHistoryRouteWithChildren,
+  VoiceHubRoute: VoiceHubRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
