@@ -7,8 +7,10 @@ import { HaloButton, HaloLayout } from "@/components/halo/HaloChrome";
 import orb from "@/assets/halo/ic_halo_orb.png.asset.json";
 import assistant from "@/assets/halo/assistant.riv.asset.json";
 import micIcon from "@/assets/halo/ic_voice_mic.png.asset.json";
-import voiceHubIcon from "@/assets/halo/ic_voice.png.asset.json";
+import voiceHubIcon from "@/assets/halo/ic_library.png.asset.json";
 import historyIcon from "@/assets/halo/ic_history.png.asset.json";
+import chatIcon from "@/assets/halo/ic_chat.png.asset.json";
+import chatSendIcon from "@/assets/halo/ic_chat_send.png.asset.json";
 import suggestionSummarize from "@/assets/halo/ic_suggestion_summarize.png.asset.json";
 import suggestionTranslate from "@/assets/halo/ic_suggestion_translate.png.asset.json";
 import suggestionAnalyze from "@/assets/halo/ic_suggestion_analyze.png.asset.json";
@@ -122,20 +124,57 @@ function VoiceAreas() {
     <section className="content-section voice-areas">
       <Link to="/voice/hub" className="area-card glass-panel">
         <img src={voiceHubIcon.url} alt="" aria-hidden="true" />
-        <span className="area-text">
-          <strong>Voice Hub</strong>
-          <small>Create, manage and personalize HALO voices.</small>
-        </span>
-        <em>Open Voice Hub →</em>
+        <strong>Voice Hub</strong>
+        <small>Create, manage and personalize HALO voices.</small>
+        <em>Open →</em>
       </Link>
       <Link to="/voice/history" className="area-card glass-panel">
         <img src={historyIcon.url} alt="" aria-hidden="true" />
-        <span className="area-text">
-          <strong>Voice History</strong>
-          <small>Review previous voice conversations and commands.</small>
-        </span>
-        <em>Open Voice History →</em>
+        <strong>Voice History</strong>
+        <small>Review previous voice conversations and commands.</small>
+        <em>Open →</em>
       </Link>
+    </section>
+  );
+}
+
+function TextEntry() {
+  const [value, setValue] = useState("");
+  const [sent, setSent] = useState<string | null>(null);
+  const trimmed = value.trim();
+  return (
+    <section className="content-section text-entry-section">
+      <form
+        className="text-entry glass-panel"
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (!trimmed) return;
+          setSent(trimmed);
+          setValue("");
+        }}
+      >
+        <img src={chatIcon.url} alt="" aria-hidden="true" />
+        <input
+          type="text"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          placeholder="Type a message..."
+          aria-label="Type a message"
+        />
+        <button
+          type="submit"
+          className="text-entry-send"
+          disabled={!trimmed}
+          aria-label="Send message"
+        >
+          <img src={chatSendIcon.url} alt="" aria-hidden="true" />
+        </button>
+      </form>
+      {sent && (
+        <p className="text-entry-echo" role="status">
+          Sent to HALO: “{sent}”
+        </p>
+      )}
     </section>
   );
 }
